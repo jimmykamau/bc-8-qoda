@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Qoda</title>
+
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/uikit.almost-flat.min.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ionicons.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components/progress.almost-flat.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components/notify.almost-flat.min.css') }}">
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
+		<!-- scripts -->
+		<script src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/uikit.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/components/sticky.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/core/dropdown.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/core/modal.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/components/notify.min.js') }}"></script>
+
+		<!-- CodeMirror -->
+		<script src="{{ url_for('static', filename='tools/CodeMirror-master/lib/codemirror.js') }}"></script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='tools/CodeMirror-master/lib/codemirror.css') }}">
+		<script src="{{ url_for('static', filename='tools/CodeMirror-master/mode/python/python.js') }}"></script>
+
+
+
+	</head>
+	<body>
+		
+		{% block content %}
+		{% endblock %}
+	
+	</body>
+</html>

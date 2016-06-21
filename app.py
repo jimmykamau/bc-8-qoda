@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template, request, url_for, flash, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CsrfProtect
 
@@ -11,9 +11,7 @@ CsrfProtect(app)
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required, current_user, utils
 
 # Define models
-roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+roles_users = db.Table('roles_users', db.Column('user_id', db.Integer(), db.ForeignKey('user.id')), db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 # Admin DB roles
 class Role(db.Model, RoleMixin):
@@ -42,7 +40,7 @@ class User(db.Model, UserMixin):
 
 @app.route('/')
 def index():
-	return "Hello Qoda!"
+	return render_template('index.html')
 
 if __name__ == '__main__':
 	app.run()
