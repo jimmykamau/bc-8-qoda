@@ -5,8 +5,22 @@
 </div>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	// CodeMirror
 	var myCodeMirror = CodeMirror(document.getElementById('firepad-container'), {
 	  value: "# Classic Hello Andela! \nprint('Hello Andela!')\n",
 	  mode:  "python"
 	});
+
+	inbox.onmessage = function(message) {
+		var data = JSON.parse(message.data);
+		myCodeMirror.setValue(data.text);
+	}
+
+	$("#firepad-container").keyup(function(event) {
+		code = myCodeMirror.getValue();
+		outbox.send(JSON.stringify({text: code}))
+	});
+	
+});
 </script>

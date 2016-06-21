@@ -9,7 +9,7 @@ class Config(object):
     SECRET_KEY = os.environ['APP_SECRET_KEY']
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-
+    REDIS_URL = os.environ['REDIS_URL']
 
 class ProductionConfig(Config):
     DEBUG = False

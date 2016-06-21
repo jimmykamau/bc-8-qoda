@@ -27,8 +27,6 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='tools/CodeMirror-master/lib/codemirror.css') }}">
 		<script src="{{ url_for('static', filename='tools/CodeMirror-master/mode/python/python.js') }}"></script>
 
-
-
 	</head>
 	<body>
 		
@@ -36,4 +34,6 @@
 		{% endblock %}
 	
 	</body>
+<script src="{{ url_for('static', filename='js/reconnecting-websocket.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/application.js') }}"></script>
 </html>
