@@ -31,7 +31,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255))
     full_name = db.Column(db.String(255))
     active = db.Column(db.Boolean())
-    confirmed_at = db.Column(db.DateTime())
     last_login_at = db.Column(db.DateTime())
     current_login_at = db.Column(db.DateTime())
     last_login_ip = db.Column(db.String(45))
