@@ -9,7 +9,8 @@ $(document).ready(function() {
 	// CodeMirror
 	var myCodeMirror = CodeMirror(document.getElementById('firepad-container'), {
 	  value: "# Classic Hello Andela! \nprint('Hello Andela!')\n",
-	  mode:  "python"
+	  mode:  "python",
+	  lineNumbers: true,
 	});
 
 	inbox.onmessage = function(message) {
@@ -17,9 +18,12 @@ $(document).ready(function() {
 		myCodeMirror.setValue(data.text);
 	}
 
-	$("#firepad-container").keyup(function(event) {
-		code = myCodeMirror.getValue();
-		outbox.send(JSON.stringify({text: code}))
+	$("#firepad-container").keyup(function(e) {
+		if (e.ctrlKey && e.keyCode == 13)
+        {
+            code = myCodeMirror.getValue();
+			outbox.send(JSON.stringify({text: code}))
+        }
 	});
 	
 });
