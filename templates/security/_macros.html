@@ -1,0 +1,21 @@
+{% macro render_field_with_errors(field) %}
+  <p> 
+    {{ field(**kwargs)|safe }}
+    {% if field.errors %}
+      {% for error in field.errors %}
+        <script type="text/javascript">
+          UIkit.notify({
+              message : '{{ error }}',
+              timeout : 10000,
+              pos     : 'top-right',
+              status  : 'danger'
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+  </p>
+{% endmacro %}
+
+{% macro render_field(field) %}
+  <p>{{ field(**kwargs)|safe }}</p>
+{% endmacro %}

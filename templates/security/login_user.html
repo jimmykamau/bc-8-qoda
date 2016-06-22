@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="uk-container uk-container-center uk-margin-large-bottom">
+	<img src="{{ url_for('static', filename='images/logo.png') }}" class="log-img" />
+    
+    	<div class="mp-reg">
+			{% from "security/_macros.html" import render_field_with_errors, render_field %}
+			{% include "security/_messages.html" %}
+			<form class="uk-form uk-form-horizontal" action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+			<legend><h2 class="form-hdr">Log In</h2></legend>
+	            <div class="uk-form-row">
+	                {{ render_field_with_errors(login_user_form.email, class="uk-form-large uk-form-width-large", placeholder="Email Address") }}
+	            </div>
+	            <div class="uk-form-row">
+	            	{{ render_field_with_errors(login_user_form.password, class="uk-form-large uk-form-width-large", placeholder="Password") }}
+	            </div>
+			  {{ login_user_form.hidden_tag() }}
+			  {{ render_field(login_user_form.next) }}
+			  <div class="uk-form-row">
+			  	<button class="uk-button uk-button-large uk-button-success uk-button uk-width-1-1 uk-margin-small" id="submit" name="submit" type="submit">Log In</button>
+			  </div>
+			  <div class="uk-form-row forgotpaswd">
+			  	<a href="{{ url_for_security('forgot_password') }}">Forgot password?</a>
+			  </div>
+			</form>
+		</div>
+	
+	<div class="log-inst">
+		Don't have an account? <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}">Sign Up!</a>
+	</div>
+	<div class="log-inst uk-margin-top">
+		Lost confirmation mail? <a href="{{ url_for_security('send_confirmation') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}">Resend Email!</a>
+	</div>
+</div>
+{% endblock %}

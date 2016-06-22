@@ -1,36 +1,47 @@
 import os
 import redis
 import gevent
-from flask import Flask, render_template, request, url_for, flash, redirect, jsonify
+from flask import Flask, render_template, \
+    url_for, redirect, session, request, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CsrfProtect
 from flask_sockets import Sockets
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_mail import Mail, Message
+from forms import newUserForm, editUserForm, changeUserPass, \
+    StringField, validators, PasswordField
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 CsrfProtect(app)
-sockets =  Sockets(app)
+mail = Mail(app)
+sockets = Sockets(app)
 redis = redis.from_url(app.config['REDIS_URL'])
 
-from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required, current_user, utils
+from flask_security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required, current_user, utils
 
 # Define models
-roles_users = db.Table('roles_users', db.Column('user_id', db.Integer(), db.ForeignKey('user.id')), db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
-# Admin DB roles
+
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 
-# User model
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     full_name = db.Column(db.String(255))
     active = db.Column(db.Boolean())
+    confirmed_at = db.Column(db.DateTime())
     last_login_at = db.Column(db.DateTime())
     current_login_at = db.Column(db.DateTime())
     last_login_ip = db.Column(db.String(45))
@@ -40,9 +51,26 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
-    	return (self.email)
+        return (self.email)
+
+
+from flask_security.forms import RegisterForm
+
+
+class ExtendedRegisterForm(RegisterForm):
+    full_name = StringField('Full Name',
+        validators=[validators.input_required()])
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore, confirm_register_form=ExtendedRegisterForm)
+
+admin = Admin(app, name='Qoda', template_mode='bootstrap3')
+admin.add_view(ModelView(User, db.session))
+
 
 REDIS_CHAN = 'code'
+
+
 class CodeBackend(object):
 
     def __init__(self):
@@ -77,6 +105,7 @@ class CodeBackend(object):
 code = CodeBackend()
 code.start()
 
+
 @sockets.route('/submit')
 def inbox(ws):
     while not ws.closed:
@@ -87,6 +116,7 @@ def inbox(ws):
             print('Inserting message: {}'.format(message))
             redis.publish(REDIS_CHAN, message)
 
+
 @sockets.route('/receive')
 def outbox(ws):
     code.register(ws)
@@ -94,9 +124,30 @@ def outbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
 
+
 @app.route('/')
+@login_required
 def index():
-	return render_template('index.html')
+    return render_template('index.html')
+
+
+@app.route('/login')
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    google = get_google_auth()
+    auth_url, state = google.authorization_url(AUTH_URI, access_type='offline')
+    session['oauth_state'] = state
+    return render_template('login.html', auth_url=auth_url)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    session.clear()
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
-	app.run()
+    app.run()

@@ -1,0 +1,14 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  	{% for category, message in messages %}
+	  	<script type="text/javascript">
+	        UIkit.notify({
+	            message : '{{ message }}',
+	            timeout : 10000,
+	            pos     : 'top-right',
+	            status  : '{{ category }}'
+	        });
+	    </script>
+	{% endfor %}
+  {% endif %}
+{% endwith %}
