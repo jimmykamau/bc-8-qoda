@@ -25,8 +25,10 @@ from flask_security import Security, SQLAlchemyUserDatastore, \
 
 # Define models
 roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+                        db.Column('user_id', db.Integer(),
+                                    db.ForeignKey('user.id')),
+                        db.Column('role_id', db.Integer(),
+                                    db.ForeignKey('role.id')))
 
 
 class Role(db.Model, RoleMixin):
@@ -59,10 +61,11 @@ from flask_security.forms import RegisterForm
 
 class ExtendedRegisterForm(RegisterForm):
     full_name = StringField('Full Name',
-        validators=[validators.input_required()])
+                            validators=[validators.input_required()])
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore, confirm_register_form=ExtendedRegisterForm)
+security = Security(app, user_datastore,
+                    confirm_register_form=ExtendedRegisterForm)
 
 admin = Admin(app, name='Qoda', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
@@ -129,24 +132,6 @@ def outbox(ws):
 @login_required
 def index():
     return render_template('index.html')
-
-
-@app.route('/login')
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    google = get_google_auth()
-    auth_url, state = google.authorization_url(AUTH_URI, access_type='offline')
-    session['oauth_state'] = state
-    return render_template('login.html', auth_url=auth_url)
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    session.clear()
-    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
