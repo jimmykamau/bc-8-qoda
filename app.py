@@ -2,7 +2,8 @@ import os
 import redis
 import gevent
 from flask import Flask, render_template, \
-    url_for, redirect, session, request, json
+    url_for, redirect, session, request, json, \
+    jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CsrfProtect
 from flask_sockets import Sockets
@@ -68,15 +69,34 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore,
                     confirm_register_form=ExtendedRegisterForm)
 
+
+from models import CodeSessions
+
+
 admin = Admin(app, name='Qoda', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(CodeSessions, db.session))
 
+
+def create_new_coding_session(session_name):
+    new_session = CodeSessions(session_owner=str(current_user),
+                                session_name=session_name)
+    db.session.add(new_session)
+    db.session.commit()
+    return new_session.id
 
 @app.route('/')
 @login_required
 def index():
     return render_template('index.html')
 
+
+@app.route('/create_new_session')
+def create_new_session():
+    session_name = request.args.get('name', type=str)
+    new_session = create_new_coding_session(session_name)
+    session['current_session'] = new_session
+    return jsonify(session_id=session['current_session'])
 
 if __name__ == '__main__':
     app.run()

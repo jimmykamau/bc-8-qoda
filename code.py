@@ -15,7 +15,6 @@ class CodeBackend(object):
         for message in self.pubsub.listen():
             data = message.get('data')
             if message['type'] == 'message':
-                print('Sending message: {}'.format(data))
                 yield data
 
     def register(self, client):
@@ -46,13 +45,11 @@ def inbox(ws):
         message = ws.receive()
 
         if message:
-            print('Inserting message: {}'.format(message))
             redis.publish(REDIS_CHAN, message)
 
 
 @sockets.route('/receive')
 def outbox(ws):
     code.register(ws)
-
     while not ws.closed:
         gevent.sleep(0.1)
