@@ -25,6 +25,7 @@ var/
 dump.rdb
 celerybeat-schedule
 *.pyc
+*.db
 
 # Installer logs
 pip-log.txt

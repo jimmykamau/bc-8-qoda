@@ -1,5 +1,27 @@
 <div class="uk-width-1-6 uk-height-viewport main-viewport">
 	<div class="uk-margin-top uk-margin-large-bottom uk-margin-small">
 		Chat
+		<div id="chat-holder"></div>
+		<input type="text" name="chat-content" id="chat-content" />
+		<button class="uk-button" type="button" id="submit-chat">Submit chat</button>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	inbox_chat.onmessage = function(message) {
+		var data = JSON.parse(message.data);
+		$('#chat-holder').append(data.handle);
+		$('#chat-holder').append(data.text);
+	}
+	$('#submit-chat').bind('click', function() {
+    	if (!$('#chat-content').val()) {
+    		return false
+    	}
+    	else {
+    		outbox_chat.send(JSON.stringify({ handle: "{{user}}", text: $('#chat-content').val() }));
+  			$("#chat-content")[0].value = "";
+    	}
+    });
+});
+</script>
