@@ -2,7 +2,15 @@
 	<div class="uk-margin-top uk-margin-large-bottom uk-margin-small">
 		<div class="section-title" style="padding-left: 10px;">My Sessions</div>
 		<div>
-			<div></div>
+			<div class="uk-width-1-1 nav-sidebar uk-margin-bottom uk-margin-top">
+
+                <ul class="uk-nav" id="list-sessions" data-uk-nav>
+			    	<li><a href="">Dashboard</a></li>
+			    	<li><a href="">Dashboard</a></li>
+			    	<li><a href="">Dashboard</a></li>
+			    </ul>
+
+            </div>
 			<button class="uk-button" type="button" data-uk-modal="{target:'#modal'}">Create New</button>
 		</div>
 	</div>
@@ -32,10 +40,38 @@
     		$.getJSON($SCRIPT_ROOT + '/create_new_session', {
 		    	name: $('#new_session_name').val(),
 		    }, function(data) {
-		    	alert(data.session_id);
+		    	UIkit.modal("#modal").hide();
+		    	UIkit.notify({
+		            message : 'Session '+name+' created successfully',
+		            timeout : 10000,
+		            pos     : 'top-right',
+		            status  : 'success'
+		        });
 		    });
     	}
+    	$.getJSON($SCRIPT_ROOT + '/my_sessions', function(data) {
+    		var elements = $();
+    		$.each(data, function(key, value) {
+    			value.forEach(function(item) {
+    				var session_url = '<li><a href="' + $SCRIPT_ROOT + '/sessions/' + item.id + '"><i class="uk-icon-code"></i> ' + item.session_name + '</a></li>'
+    				elements = elements.add(session_url);
+				});
+			});
+			$('#list-sessions').empty();
+			$('#list-sessions').append(elements);
+	    });
     	return false;
+    });
+    $.getJSON($SCRIPT_ROOT + '/my_sessions', function(data) {
+		var elements = $();
+		$.each(data, function(key, value) {
+			value.forEach(function(item) {
+				var session_url = '<li><a href="' + $SCRIPT_ROOT + '/sessions/' + item.id + '"><i class="uk-icon-code"></i> ' + item.session_name + '</a></li>'
+    			elements = elements.add(session_url);
+			});
+		});
+		$('#list-sessions').empty();
+		$('#list-sessions').append(elements);
     });
   });
 </script>

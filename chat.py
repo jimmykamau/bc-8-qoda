@@ -1,10 +1,10 @@
 from app import sockets, redis, gevent
 
 
-REDIS_CHAN = 'code'
+REDIS_CHAN = 'chat'
 
 
-class CodeBackend(object):
+class ChatBackend(object):
 
     def __init__(self):
         self.clients = list()
@@ -14,7 +14,7 @@ class CodeBackend(object):
     def __iter_data(self):
         for message in self.pubsub.listen():
             data = message.get('data')
-            if message['type'] == 'message':
+            if message['type'] == 'chat_message':
                 yield data
 
     def register(self, client):
@@ -35,11 +35,11 @@ class CodeBackend(object):
         gevent.spawn(self.run)
 
 
-code = CodeBackend()
-code.start()
+chat = ChatBackend()
+chat.start()
 
 
-@sockets.route('/submit_code')
+@sockets.route('/submit_chat')
 def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
@@ -49,8 +49,8 @@ def inbox(ws):
             redis.publish(REDIS_CHAN, message)
 
 
-@sockets.route('/receive_code')
+@sockets.route('/receive_chat')
 def outbox(ws):
-    code.register(ws)
+    chat.register(ws)
     while not ws.closed:
         gevent.sleep(0.1)

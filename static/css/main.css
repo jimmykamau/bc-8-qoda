@@ -16,6 +16,187 @@ body {
 	font-weight: bold;
 }
 
-#firepad-container {
-  
+*main page*/
+.mp-page {
+	float: right;
+	padding-left: 60px;
+}
+.mp-header a, .mp-header a:hover, .mp-header a:focus {
+	text-decoration: none;
+}
+.mp-header a h1 {
+	font-family: 'Quicksand', sans-serif;
+	color: #aeaeae;
+	text-decoration: none;
+}
+.mp-body {
+	border: 2px solid #f1f1f1;
+    border-radius: 3px;
+    padding: 2rem;
+    margin-bottom: 30px;
+}
+.body-title {
+	font-family: 'Montserrat', sans-serif;
+	color: #666666;
+}
+
+.users-title {
+	width: 100%;
+	margin-bottom: 60px;
+}
+.users-title > .body-title {
+	float: left;
+}
+.users-title > a {
+	float: right;
+}
+
+/* Sidebar */
+.nav-sidebar {
+	float: left;
+	padding-right: 20px;
+}
+.sidebar-top {
+	margin-bottom: 50px;
+}
+.nav-sidebar > ul > li > a {
+	color: #ccc;
+	font-weight: 500;
+	text-decoration: none;
+	position: relative;
+    display: block;
+    padding: 5px;
+    font-size: 10pt;
+}
+.nav-sidebar > ul > li > a:hover, .nav-sidebar > ul > li > a:focus {
+	color: #fff;
+	border-radius: 4px;
+	color: #fff;
+}
+.nav-sidebar > ul > li.uk-active > a {
+	background-color: rgb(0, 150, 210);
+	border-radius: 4px;
+	color: #fff;
+}
+.nav-sidebar > ul > li.uk-nav-header {
+	padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+    font-size: 85%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #aeaeae;
+    text-transform: uppercase;
+}
+.nav-itms {
+	padding: 0px;
+	background-color: rgba(255,255,255,0.9);
+	text-align: center;
+	font-size: 15px;
+	font-family: 'Metrophobic', sans-serif;
+	color: #666666;
+}
+.nav-itms li a{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+/* Sidebar Logo */
+.main-logo {
+	max-width: 60pt;
+	margin: 10px;
+}
+.my-account {
+	width: 100%;
+	text-decoration: none;
+	text-align: right;
+	padding-top: 14px;
+}
+.dash-me {
+	font-size: 20px;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    padding: 5px;
+    text-decoration: none;
+    color: rgba(0, 174, 239, 0.5);
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin: 0 auto;
+}
+.dash-me:hover, .dash-me:focus {
+	font-size: 20px;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    padding: 5px;
+    text-decoration: none;
+    color: rgba(0, 174, 239, 0.5);
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.dom-dash-domain {
+	font-size: 25px;
+	text-decoration: none;
+	color: #00C0FF;
+}
+.dom-dash-domain:hover, .dom-dash-domain:focus {
+	font-size: 25px;
+	text-decoration: none;
+	color: rgba(0,192,255,0.6);
+}
+
+.mp-reg {
+	border-top: 3px solid rgba(0,174,239,0.8);
+	background-color: #fff;
+	box-shadow: 0 17px 50px 0 rgba(0,0,0,.19),0 12px 15px 0 rgba(0,0,0,.24);
+	transition: box-shadow 0.3s ease-out;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin: 30px auto;
+    width: 500px;
+}
+.form-hdr {
+	text-align: center;
+	color: rgba(0,174,239, 1);	
+}
+
+.log-inst {
+	text-align: center;
+	color: #666666;
+}
+.log-inst a {
+	color: rgba(0,174,239,1);
+}
+.log-inst a:hover {
+	color: #666666;
+}
+
+.tandc {
+	color: #666666;
+	text-align: center;
+}
+.tandc a {
+	color: rgba(0,174,239,1);
+}
+.tandc a:hover {
+	color: #666666;
+}
+
+.forgotpaswd {
+	text-align: center;
+}
+.forgotpaswd a {
+	color: #666666;
+}
+.forgotpaswd a:hover {
+	color: rgba(0,174,239,1);
+}
+.log-img {
+	max-width: 200pt;
+    display: block;
+    padding-top: 20px;
+    margin: 0 auto;
 }

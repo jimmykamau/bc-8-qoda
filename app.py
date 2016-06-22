@@ -21,9 +21,11 @@ mail = Mail(app)
 sockets = Sockets(app)
 redis = redis.from_url(app.config['REDIS_URL'])
 
+
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required, current_user, utils
 from code import *
+from chat import *
 
 # Define models
 roles_users = db.Table('roles_users',
@@ -85,10 +87,11 @@ def create_new_coding_session(session_name):
     db.session.commit()
     return new_session.id
 
+
 @app.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template('index.html', user=str(current_user.full_name))
 
 
 @app.route('/create_new_session')
@@ -97,6 +100,19 @@ def create_new_session():
     new_session = create_new_coding_session(session_name)
     session['current_session'] = new_session
     return jsonify(session_id=session['current_session'])
+
+
+@app.route('/my_sessions')
+def get_user_sessions():
+    user_sessions = db.session.query(CodeSessions).filter_by(session_owner=str(current_user)).all()
+    return jsonify(user_sessions=[u.serialize for u in user_sessions])
+
+
+@app.route('/sessions/<int:session_number>')
+def change_session(session_number):
+    session['current_session'] = session_number
+    return render_template('index.html', user=str(current_user.full_name))
+
 
 if __name__ == '__main__':
     app.run()

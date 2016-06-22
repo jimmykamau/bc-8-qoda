@@ -15,5 +15,14 @@ class CodeSessions(db.Model):
 		self.session_name = session_name
 		self.session_desc = session_desc
 
+	@property
+	def serialize(self):
+	    return {
+	    	'id' : self.id,
+	    	'session_owner' : self.session_owner,
+	    	'session_name' : self.session_name,
+	    	'session_desc' : self.session_desc,
+	    }
+
 	def __repr__(self):
 		return self.id
