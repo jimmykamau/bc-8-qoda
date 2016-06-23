@@ -1,5 +1,48 @@
 <div class="uk-width-1-6 uk-height-viewport main-viewport">
 	<div class="uk-margin-top uk-margin-large-bottom uk-margin-small">
 		<div class="section-title"> Session Users </div>
+		<div id="users-list"></div>
 	</div>
+	<button class="uk-button" type="button" data-uk-modal="{target:'#modal-session-users'}">Add</button>
 </div>
+<div id="modal-session-users" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a href="" class="uk-modal-close uk-close"></a>
+        <h1>Select a user</h1>
+        <div class="my-account uk-button-dropdown" data-uk-dropdown>
+			<a class="uk-button-link dash-me"><i class="icon ion-ios-arrow-down"></i></a>
+			<div class="uk-dropdown-blank uk-panel uk-panel-box nav-itms">
+	            <ul class="uk-nav uk-nav-dropdown" id="add-users-list">
+	            	{% for user in user_list %}
+	            	<li id="{{user.id}}"><a href="#" onclick="add_user({{user.id}}, {{chan}})">{{user.full_name}}</a></li>
+	                {% endfor %}
+	            </ul>
+	        </div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+function add_user(user_id, session_id) {
+	$.getJSON($SCRIPT_ROOT + '/add_user_to_session/' + session_id + '/' + user_id, function(data) {
+    	if (data['message'] === "Success") {
+    		alert("success");
+    	}
+    	else {
+    		alert("fail");
+    	}
+    	var elements = $();
+		$.each(data, function(key, value) {
+			value.forEach(function(item) {
+				var user_dets = item.full_name
+				elements = elements.add(user_dets);
+			});
+		});
+		$('#users-list').empty();
+		$('#users-list').append(elements);
+    });
+	return false;
+}
+$(function() {
+    return false
+});
+</script>

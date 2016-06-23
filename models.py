@@ -26,3 +26,57 @@ class CodeSessions(db.Model):
 
 	def __repr__(self):
 		return self.id
+
+
+class CurrentUserSession(db.Model):
+	__tablename__ = 'currentusersession'
+
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	session_id = db.Column(db.Integer, db.ForeignKey('codesessions.id'))
+	user = db.relationship(User)
+	codesessions = db.relationship(CodeSessions)
+
+	def __init__(self, user_id='', session_id=''):
+		self.user_id = user_id
+		self.session_id = session_id
+
+	@property
+	def serialize(self):
+		return {
+			'user_id' : self.user_id,
+			'session_id' : self.session_id,
+		}
+	 
+	def __repr__(self):
+		return self.user_id
+
+
+class CodingSessionUsers(db.Model):
+	__tablename__ = 'codingsessionusers'
+
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	session_id = db.Column(db.Integer, db.ForeignKey('codesessions.id'))
+	user_name = db.Column(db.String)
+	user_email = db.Column(db.String)
+	user = db.relationship(User)
+	codesessions = db.relationship(CodeSessions)
+
+	def __init__(self, user_id='', session_id='', user_email='', user_name=''):
+		self.user_id = user_id
+		self.session_id = session_id
+		self.user_email = user_email
+		self.user_name = user_name
+
+	@property
+	def serialize(self):
+		return {
+			'user_id' : self.user_id,
+			'session_id' : self.session_id,
+			'user_email' : self.user_email,
+			'user_name' : self.user_name,
+		}
+	 
+	def __repr__(self):
+		return self.user_id

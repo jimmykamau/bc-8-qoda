@@ -14,7 +14,7 @@ class ChatBackend(object):
     def __iter_data(self):
         for message in self.pubsub.listen():
             data = message.get('data')
-            if message['type'] == 'chat_message':
+            if message['type'] == 'message':
                 yield data
 
     def register(self, client):

@@ -39,7 +39,7 @@ code = CodeBackend()
 code.start()
 
 
-@sockets.route('/submit_code')
+@sockets.route('/submit')
 def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
@@ -49,7 +49,7 @@ def inbox(ws):
             redis.publish(REDIS_CHAN, message)
 
 
-@sockets.route('/receive_code')
+@sockets.route('/receive')
 def outbox(ws):
     code.register(ws)
     while not ws.closed:
