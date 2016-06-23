@@ -1,22 +1,10 @@
 body {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 9pt;
-	color: #fff;
-}
-
-.main-viewport {
-	border-right: 2px solid #000;
-	background-color: #323232;
-}
-
-.section-title {
 	font-family: 'Metrophobic', sans-serif;
-	font-size: 13pt;
-	color: #9e9e9e;
-	font-weight: bold;
+	font-size: 15px;
+	color: #333;
 }
 
-*main page*/
+/*main page*/
 .mp-page {
 	float: right;
 	padding-left: 60px;
@@ -30,10 +18,8 @@ body {
 	text-decoration: none;
 }
 .mp-body {
-	border: 2px solid #f1f1f1;
+	border: 10px solid #f1f1f1;
     border-radius: 3px;
-    padding: 2rem;
-    margin-bottom: 30px;
 }
 .body-title {
 	font-family: 'Montserrat', sans-serif;
@@ -51,6 +37,12 @@ body {
 	float: right;
 }
 
+.code-instructions {
+	float: none;
+	padding: 10px;
+	color: #333;
+}
+
 /* Sidebar */
 .nav-sidebar {
 	float: left;
@@ -59,21 +51,21 @@ body {
 .sidebar-top {
 	margin-bottom: 50px;
 }
-.nav-sidebar > ul > li > a {
-	color: #ccc;
+.nav-sidebar > ul > div > li > a {
+	color: rgba(0, 150, 210, 0.8);
 	font-weight: 500;
 	text-decoration: none;
 	position: relative;
     display: block;
-    padding: 5px;
-    font-size: 10pt;
+    padding: 7px 20px;
+    margin: 5px;
 }
-.nav-sidebar > ul > li > a:hover, .nav-sidebar > ul > li > a:focus {
-	color: #fff;
+.nav-sidebar > ul > div > li > a:hover, .nav-sidebar > ul > div > li > a:focus {
+	background-color: rgba(0, 150, 210, 0.5);
 	border-radius: 4px;
 	color: #fff;
 }
-.nav-sidebar > ul > li.uk-active > a {
+.nav-sidebar > ul > div > li.uk-active > a {
 	background-color: rgb(0, 150, 210);
 	border-radius: 4px;
 	color: #fff;
@@ -96,7 +88,7 @@ body {
 	font-family: 'Metrophobic', sans-serif;
 	color: #666666;
 }
-.nav-itms li a{
+.nav-itms div li a{
 	margin-top: 3px;
 	margin-bottom: 3px;
 }
@@ -199,4 +191,13 @@ body {
     display: block;
     padding-top: 20px;
     margin: 0 auto;
+}
+
+.chat-form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    background-color: #fff;
+    border-top: 3px solid #f1f1f1;
 }

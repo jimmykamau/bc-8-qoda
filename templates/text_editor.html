@@ -1,9 +1,21 @@
-<div class="uk-width-1-2 uk-height-viewport main-viewport">
-	<div class="uk-margin-top uk-margin-large-bottom">
-		<div id="firepad-container"></div>
-	</div>
-</div>
+<div class="uk-width-3-4 mp-page">
+    <div class="uk-width-1-1 mp-header" style="margin-bottom: 80px;">
+        <div class="uk-width-5-6" style="float: left;">
+            <h1 style="font-family: 'Quicksand', sans-serif; color: #aeaeae; text-decoration: none;" data-uk-tooltip="{pos:'top-left'}" title="{{chan_desc}}">{{chan_name}}</h1>
+        </div>
+        <div class="uk-width-1-1" style="float: right;">
+        	<a href="#offcanvas-2" class="uk-icon-button uk-icon-comments-o" style="float: right;" data-uk-offcanvas></a>
+        </div>
+    </div>
+    <div class="uk-width-1-1 code-instructions"><p>Press CTRL+ENTER to share your edit</p></div>
+    <div class="uk-width-1-1 mp-body">
+            <div class="uk-width-1-1">
+                <div id="firepad-container"></div>
+            </div>
 
+    </div>
+    
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	// CodeMirror
@@ -11,6 +23,7 @@ $(document).ready(function() {
 	  value: "# Classic Hello Andela! \nprint('Hello Andela!')\n",
 	  mode:  "python",
 	  lineNumbers: true,
+	  theme: "monokai",
 	});
 
 	inbox.onmessage = function(message) {

@@ -1,11 +1,16 @@
 {% extends "main.html" %}
 {% block content %}
-<div class="uk-width-1-1">
-    <div class="uk-grid" data-uk-grid-margin>
-        {% include "my_sessions.html" %}
-        {% include "session_users.html" %}
-        {% include "text_editor.html" %}
-        {% include "chat.html" %}
-    </div>
+<div class="uk-container uk-container-center">
+    <div class="uk-grid main-page uk-width-1-1 uk-margin-large-top uk-margin-large-bottom" data-uk-grid-margin>
+		<div class="uk-width-1-1">
+		    <div class="uk-grid" data-uk-grid-margin>
+		        {% include "my_sessions.html" %}
+		        
+		        {% include "text_editor.html" %}
+		        {% include "chat.html" %}
+		        
+		    </div>
+		</div>
+	</div>
 </div>
 {% endblock %}

@@ -1,25 +1,40 @@
-<div class="uk-width-1-6 uk-height-viewport main-viewport">
-	<div class="uk-margin-top uk-margin-large-bottom uk-margin-small">
-		Chat
-		<div id="chat-holder"></div>
-		<input type="text" name="chat-content" id="chat-content" />
-		<button class="uk-button" type="button" id="submit-chat">Submit chat</button>
-	</div>
-</div> 
-
+<div id="offcanvas-2" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar uk-offcanvas-bar-flip" style="background: #fff; overflow: hidden;">
+				<div id="chat-holder">
+					
+				</div>
+				<div class="chat-form">
+					<form class="uk-form">
+				        <div class="uk-form-row">
+				            <div class="uk-form-controls">
+				        		<textarea name="chat-content" id="chat-content" class="uk-form-large uk-form-width-large" placeholder="Hi there!"></textarea>
+				        	</div>
+				        </div>
+				    	<div class="uk-form-row" style="padding: 0 20px;">
+				    		 <a href="#" class="uk-button uk-button-primary" id="submit-chat"><i class="uk-icon-envelope-o"></i> Send Message</a>
+				    		<!--<button class="uk-button" type="button" id="submit-chat">Send Message</button>-->    
+				    	</div>
+				    </form>
+				</div>
+    </div>
+</div>
+<!--
+var chat_content = '<article class="uk-comment"><header class="uk-comment-header"><img class="uk-comment-avatar" src="http://www.gravatar.com/avatar/' + md5("{{current_user.email}}") + '" width="50" height="50" alt=""><h4 class="uk-comment-title">' + data.handle + '</h4></header><div class="uk-comment-body"><p>' + data.text + '</p></div></article>';
+-->
 <script type="text/javascript">
 $(document).ready(function() {
 	inbox_chat.onmessage = function(message) {
 		var data = JSON.parse(message.data);
-		$('#chat-holder').append(data.handle);
-		$('#chat-holder').append(data.text);
+		var chat_content = '<div class="uk-width-1-1"><div class="uk-panel uk-panel-box"><div class="uk-panel-teaser"> <img src="http://www.gravatar.com/avatar/' + md5("{{current_user.email}}") + '" width="50" height="50" alt=""></div><p><b>' + data.handle + 'says: </b>' + data.text + '</p></div></div>';
+		$('#chat-holder').append(chat_content);
+		$('#uk-offcanvas-bar').animate({ scrollBottom: $('#uk-offcanvas-bar')[0].scrollHeight }, "slow");
 	}
 	$('#submit-chat').bind('click', function() {
     	if (!$('#chat-content').val()) {
     		return false
     	}
     	else {
-    		outbox_chat.send(JSON.stringify({ handle: "{{user}}", text: $('#chat-content').val() }));
+    		outbox_chat.send(JSON.stringify({ handle: "{{user.full_name}}", text: $('#chat-content').val(), email: "{{user.email}}" }));
   			$("#chat-content")[0].value = "";
     	}
     });
