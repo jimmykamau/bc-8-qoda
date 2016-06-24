@@ -100,7 +100,7 @@ security = Security(app, user_datastore,
 
 
 # Import models
-from models import CodeSessions, CurrentUserSession, CodingSessionUsers
+from models.models import CodeSessions, CurrentUserSession, CodingSessionUsers
 
 
 # Use Flask-Admin to quickly parse database during development
