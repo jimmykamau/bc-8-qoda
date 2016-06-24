@@ -2,11 +2,13 @@
 
 Qoda is a web-based pair-programming platform that helps teams work remotely in real-time. It is written in Python by using the Flask framework and is powered by PostgreSQL and Redis. Check out the live version [here](http://qoda.apps.winguh.com) 
 
+
 ### Features
 
 * Real-time chat
 * Real-time web-based code editor
 * Session-based coding sessions
+
 
 ### Local Installation
 
