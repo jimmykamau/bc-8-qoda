@@ -51,4 +51,5 @@ Qoda is a web-based pair-programming platform that helps teams work remotely in 
 ## To do
 
 * Create functionality to enable isolated sessions
-* Create functionality to add users to isolated sessions 
+* Create functionality to add users to isolated sessions
+* Add tests
