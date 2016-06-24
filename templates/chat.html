@@ -25,7 +25,7 @@ var chat_content = '<article class="uk-comment"><header class="uk-comment-header
 $(document).ready(function() {
 	inbox_chat.onmessage = function(message) {
 		var data = JSON.parse(message.data);
-		var chat_content = '<div class="uk-width-1-1"><div class="uk-panel uk-panel-box"><div class="uk-panel-teaser"> <img src="http://www.gravatar.com/avatar/' + md5("{{current_user.email}}") + '" width="50" height="50" alt=""></div><p><b> ' + data.handle + 'says: </b>' + data.text + '</p></div></div>';
+		var chat_content = '<div class="uk-width-1-1"><div class="uk-panel uk-panel-box"><div class="uk-panel-teaser"> <img src="http://www.gravatar.com/avatar/' + md5("{{current_user.email}}") + '" width="50" height="50" alt=""></div><p><b> ' + data.handle + ' says: </b> ' + data.text + '</p></div></div>';
 		$('#chat-holder').prepend(chat_content).fadeIn('slow');
 		$('#uk-offcanvas-bar').animate({ scrollBottom: $('#uk-offcanvas-bar')[0].scrollHeight }, "slow");
 	}
