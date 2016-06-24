@@ -56,7 +56,7 @@ chat.start()
 # Route for submitting a chat message
 @sockets.route('/submit_chat')
 def inbox(ws):
-    while not ws.closed: # Keep the socket alive
+    while not ws.closed:  # Keep the socket alive
         gevent.sleep(0.1)
         message = ws.receive()
 
@@ -67,6 +67,6 @@ def inbox(ws):
 # Route for receiving a chat message
 @sockets.route('/receive_chat')
 def outbox(ws):
-    chat.register(ws) # Register the web socket
+    chat.register(ws)  # Register the web socket
     while not ws.closed:
         gevent.sleep(0.1)
