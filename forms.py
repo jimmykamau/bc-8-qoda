@@ -2,6 +2,7 @@ from flask_wtf import Form
 from wtforms import StringField, PasswordField, SelectField, validators
 
 
+# Registration form
 class newUserForm(Form):
 	fullname = StringField('Full Name',
 		validators=[validators.input_required(),
@@ -17,6 +18,7 @@ class newUserForm(Form):
 		validators=[validators.input_required()])
 
 
+# Form for editing user's credentials
 class editUserForm(Form):
 	fullname = StringField('Full Name',
 		validators=[validators.input_required(),
@@ -26,6 +28,7 @@ class editUserForm(Form):
 		validators.Length(max=30)])
 
 
+# Form for changing password
 class changeUserPass(Form):
 	passw1 = PasswordField('Password',
 		validators=[validators.input_required(),

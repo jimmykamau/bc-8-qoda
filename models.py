@@ -1,5 +1,10 @@
 from app import db, User
 
+'''
+Model for code sessions. `session_owner` > Email address of session's owner, \
+`session_name` > Session's name, `session_desc` > Session's description
+'''
+
 
 class CodeSessions(db.Model):
 	__tablename__ = 'codesessions'
@@ -28,6 +33,13 @@ class CodeSessions(db.Model):
 		return self.id
 
 
+'''
+Model for user's current session. `user_id` > Current user's ID \
+of session's owner, \
+`session_id` > Session's id
+'''
+
+
 class CurrentUserSession(db.Model):
 	__tablename__ = 'currentusersession'
 
@@ -50,6 +62,14 @@ class CurrentUserSession(db.Model):
 	 
 	def __repr__(self):
 		return self.user_id
+
+
+'''
+Model for code session's invited users. \
+`user_id` > Invited user's ID, \
+`user_name` > Invited user's name, \
+`user_email` > Invited user's name
+'''
 
 
 class CodingSessionUsers(db.Model):
