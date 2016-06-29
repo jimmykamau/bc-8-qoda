@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Heroku SocketIO</title>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('echo', function(data){
+                $('#response').html('<p>'+data.echo+'</p>');
+            });
+            
+            function send(){
+                socket.emit('send_message', {message : $('form textarea').val()});
+            }
+        </script>
+        <style>
+            div{
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                width: 400px;
+            }
+            textarea{
+                width: 100%;
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="input">
+            <form>
+                <textarea placeholder="Send a message to the server..."></textarea>
+                <button type="button" onclick="send(); return false;">Send</button>
+            </form>
+        </div>
+        <div id="response">
+        </div>
+    </body>
+</html>

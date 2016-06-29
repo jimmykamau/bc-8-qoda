@@ -25,7 +25,7 @@ redis = redis.from_url(app.config['REDIS_URL'])
 # Import other modules. Not imported at top of file due to cyclic imports error 
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required, current_user
-from code import *
+from code_text import *
 from chat import *
 
 
